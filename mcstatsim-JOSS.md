@@ -1,102 +1,63 @@
 ---
-# Example from https://joss.readthedocs.io/en/latest/submitting.html
-title: 'Gala: A Python package for galactic dynamics'
+title: '`mcstatsim`: A Functional Programming-Based Monte Carlo Simulation Tool with Parallel Computing Support'
 tags:
-  - Python
-  - astronomy
-  - dynamics
-  - galactic dynamics
-  - milky way
+  - R
+  - simulation
+  - monte carlo
+  - biostatistics
+  - methodology
 authors:
-  - name: Adrian M. Price-Whelan
-    orcid: 0000-0003-0872-7098
-    affiliation: "1, 2" # (Multiple affiliations must be quoted)
-  - name: Author 2
-    orcid: 0000-0000-0000-0000
-    affiliation: 2
+  - name: Imad EL BADISY
+    orcid: 0000-0003-4848-4895
+    affiliation: 1
 affiliations:
- - name: Lyman Spitzer, Jr. Fellow, Princeton University
+ - name: Mohammed VI Center for Research and Innovation, Rabat, Morocco
    index: 1
- - name: Institution 2
-   index: 2
-citation_author: Price-Whelan et. al.
-date: 13 August 2017
-year: 2017
+citation_author: El Badisy
+date: 05 August 2024
+year: 2024
 bibliography: paper.bib
 output: rticles::joss_article
 csl: apa.csl
 journal: JOSS
 ---
 
-# Summary
-
-The forces on stars, galaxies, and dark matter under external gravitational
-fields lead to the dynamical evolution of structures in the universe. The orbits
-of these bodies are therefore key to understanding the formation, history, and
-future state of galaxies. The field of "galactic dynamics," which aims to model
-the gravitating components of galaxies to study their structure and evolution,
-is now well-established, commonly taught, and frequently used in astronomy.
-Aside from toy problems and demonstrations, the majority of problems require
-efficient numerical tools, many of which require the same base code (e.g., for
-performing numerical orbit integration).
-
-``Gala`` is an Astropy-affiliated Python package for galactic dynamics. Python
-enables wrapping low-level languages (e.g., C) for speed without losing
-flexibility or ease-of-use in the user-interface. The API for ``Gala`` was
-designed to provide a class-based and user-friendly interface to fast (C or
-Cython-optimized) implementations of common operations such as gravitational
-potential and force evaluation, orbit integration, dynamical transformations,
-and chaos indicators for nonlinear dynamics. ``Gala`` also relies heavily on and
-interfaces well with the implementations of physical units and astronomical
-coordinate systems in the ``Astropy`` package [@astropy] (``astropy.units`` and
-``astropy.coordinates``).
-
-``Gala`` was designed to be used by both astronomical researchers and by
-students in courses on gravitational dynamics or astronomy. It has already been
-used in a number of scientific publications [@Pearson:2017] and has also been
-used in graduate courses on Galactic dynamics to, e.g., provide interactive
-visualizations of textbook material [@Binney:2008]. The combination of speed,
-design, and support for Astropy functionality in ``Gala`` will enable exciting
-scientific explorations of forthcoming data releases from the *Gaia* mission
-[@gaia] by students and experts alike.
-
-# Mathematics
-
-Single dollars ($) are required for inline mathematics e.g. $f(x) = e^{\pi/x}$
-
-Double dollars make self-standing equations:
-
-$$\Theta(x) = \left\{\begin{array}{l}
-0\textrm{ if } x < 0\cr
-1\textrm{ else}
-\end{array}\right.$$
+## Summary
 
 
-# Citations
+Monte Carlo simulation studies, which generate pseudo-random observations from a known truth, are essential for conducting computationally intensive experiments. These simulations provide researchers with powerful tools to evaluate, compare, and assess the performance of various statistical methods, ensuring their reliable application [@boulesteix2020introduction]. Despite their utility, managing the code and maintaining reproducibility becomes increasingly challenging as the complexity of the simulation design grows.
 
-Citations to entries in paper.bib should be in
-[rMarkdown](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format.
-
-For a quick reference, the following citation commands can be used:
-- `@author:2001`  ->  "Author et al. (2001)"
-- `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
-
-# Rendered R Figures
-
-Figures can be plotted like so:
+Organizing Monte Carlo simulations is crucial, especially when the design involves numerous varying parameters. Efficiently handling large simulations often requires parallel execution, which depends on the operating system's capabilities to support multicore or multisession parallelism. Additionally, an important aspect of reporting a simulation study is the visualization of results. This requires data to be in a ready format for manipulation, and while data frames are suitable for this purpose, each iteration produces its own set of results. Therefore, a structured and organized approach is necessary to handle and analyze all the data effectively.
 
 
-```r
-plot(1:10)
-```
 
-![](mcstatsim-JOSS_files/figure-latex/unnamed-chunk-1-1.pdf)<!-- --> 
+## Statement of Need
 
-# Acknowledgements
+Monte Carlo simulations are a critical component in many statistical analyses and research studies. However, the complexity of setting up and managing simulations can be a barrier, particularly when handling large parameter grids and ensuring reproducibility. `mcstatsim` addresses these challenges by providing a functional programming approach to streamline simulation setups, manage parameters efficiently, and facilitate parallel execution to improve performance. 
 
-We acknowledge contributions from Brigitta Sipocz, Syrtis Major, and Semyeong
-Oh, and support from Kathryn Johnston during the genesis of this project.
 
-# References
+
+## Key Features
+
+The `mcstatsim` package offers several key features that enhance the efficiency and usability of Monte Carlo simulations:
+
+- It employs a functional programming approach, centralizing the simulation process into a single higher-order function. This enhances manageability and usability by using pure functions that ensure deterministic and stateless computation, leading to reproducible results.
+
+- Parallel execution is leveraged to speed up simulations, supporting both Unix-based and Windows operating systems.
+
+- It delivers a structured output by presenting results in a single dataframe format, simplifying analysis and visualization.
+
+- Additionally, it includes various simulation targets, providing a range of performance measures and their Monte Carlo estimations [@morris2019using].
+
+- The package also features a progression bar, allowing users to track the simulation's progress in real time, enhancing user experience and workflow monitoring.
+
+
+The functional programming paradigm is particularly suited for Monte Carlo simulations due to its emphasis on immutability and modularity. By breaking down the simulation design into modular, reusable functions, `mcstatsim` allows users to construct complex simulations concisely and systematically. 
+
+The core function `runsim()` handles the execution of simulations in `mcstatsim`. It processes simulation parameters via an expanded grid, mapping them to the user-defined simulation function through `mcpmap()`. The results are combined internally and returned deliberately in a structured dataframe, addressing the limitations of list outputs and ensuring scalability and adaptability to various experimental designs.
+
+## Conclusion
+
+The `mcstatsim` package offers a simple, yet efficient framework for conducting Monte Carlo simulations using a functional programming approach. Its simplicity and effectiveness make it a valuable tool for researchers in statistical and biostatistical fields, enabling them to perform complex simulations with ease.
+
+## References
